@@ -71,7 +71,7 @@ p {
   margin: 0.5em 0.5em;
   border-radius: 0.2em;
   border: 2px dashed rgba(0, 180, 255, 0.5);
-  padding: 0.5em 2em;
+  padding: 0.5em;
 
   display: flex;
   justify-content: space-between;
@@ -83,7 +83,6 @@ p {
 .scores .total-score {
   flex: 1;
   font-size: 2em;
-  white-space: nowrap;
 }
 
 .player-score {
@@ -91,6 +90,7 @@ p {
   font-size: 2em;
   margin-left: 0.5em;
   color: darkorange;
+  white-space: nowrap;
 }
 
 .scores .item-score {
