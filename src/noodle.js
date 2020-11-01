@@ -17,6 +17,7 @@ export function useEvent(target, type, callback, deps) {
 }
 
 export class Noodle extends EventTarget {
+  flavor = null;
   ingredients = [];
   rules = [];
   catalog = [];
@@ -98,7 +99,7 @@ export class Noodle extends EventTarget {
     );
   }
 
-  renderTotalScore() {
+  renderTotalScore(children) {
     const nums = this.rules
       .map(r => r(this.ingredients).score)
       .filter(n => !isNaN(n) && n != 0);
@@ -129,7 +130,27 @@ export class Noodle extends EventTarget {
         ￥{total}
       </span>
     );
-    return <div className="scores">{scores}</div>;
+    return (
+      <div className="scores">
+        {scores}
+        {children}
+      </div>
+    );
+  }
+
+  renderBowl(onClick) {
+    return (
+      <div className="bowl" onClick={onClick}>
+        <div className="label">{this.flavor ? this.flavor.name : "面"}</div>
+        <div className="price">￥{this.totalPrice()}</div>
+      </div>
+    );
+  }
+
+  totalPrice() {
+    return this.rules
+      .map(r => r(this.ingredients).score || 0)
+      .reduce((a, b) => a + b, 0);
   }
 }
 

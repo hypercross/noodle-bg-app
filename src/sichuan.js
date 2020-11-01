@@ -236,26 +236,26 @@ n8.recommended.push(红油推荐, 盐须推荐);
 
 const flavors = [n0, n1, n2, n3, n4, n5, n6, n7, n8];
 
-export function useFlavorSelect(ings) {
-  const [flavor, setFlavor] = useState("商务套餐");
-
-  const select = (
+export function renderFlavorSelect(noodle) {
+  return (
     <select
       className="flavor"
-      value={flavor}
-      onChange={e => setFlavor(e.target.value)}
+      value={noodle.flavor && noodle.flavor.name}
+      onChange={e => {
+        const flavor = flavors.find(f => f.name == e.target.value);
+        noodle.flavor = flavor;
+        noodle.update();
+      }}
     >
       {flavors.map(f => (
         <option
           value={f.name}
           key={f.name}
-          disabled={!f.findMatch(ings, f.required)}
+          disabled={!f.findMatch(noodle.ingredients, f.required)}
         >
           {f.name}
         </option>
       ))}
     </select>
   );
-
-  return { select, flavor: flavors.find(f => f.name == flavor) };
 }
