@@ -109,6 +109,7 @@ class NoodleFlavor {
   };
 
   recommendedRule = ings => {
+    if (!this.findMatch(ings, this.required)) return {};
     let score = 0;
     const msgs = [];
 
@@ -125,6 +126,7 @@ class NoodleFlavor {
   };
 
   prohibitedRule = ings => {
+    if (!this.findMatch(ings, this.required)) return {};
     let score = 0;
     const msgs = [];
 
@@ -144,21 +146,18 @@ class NoodleFlavor {
 }
 
 function buildMatcher(name, score, cb) {
-  Object.defineProperties(
-    {
-      name: {
-        get() {
-          return name;
-        }
-      },
-      score: {
-        get() {
-          return score;
-        }
+  Object.defineProperties(cb, {
+    name: {
+      get() {
+        return name;
       }
     },
-    cb
-  );
+    score: {
+      get() {
+        return score;
+      }
+    }
+  });
   return cb;
 }
 
