@@ -100,39 +100,11 @@ export class Noodle extends EventTarget {
   }
 
   renderTotalScore(children) {
-    const nums = this.rules
-      .map(r => r(this.ingredients).score)
-      .filter(n => !isNaN(n) && n != 0);
-
-    if (nums.length == 0) nums.push(0);
-    const total = nums.reduce((a, b) => a + b, 0);
-    const scores = nums.map((r, i) => (
-      <span key={"is-" + i} className="item-score">
-        {r}
-      </span>
-    ));
-    for (let i = 0; i + 1 < scores.length; i += 2) {
-      scores.splice(
-        i + 1,
-        0,
-        <span key={"add-" + i} className="add">
-          +
-        </span>
-      );
-    }
-    scores.push(
-      <span key="equals" className="equals">
-        =
-      </span>
-    );
-    scores.push(
-      <span key="total" className="total-score">
-        ￥{total}
-      </span>
-    );
     return (
       <div className="scores">
-        {scores}
+        <span key="total" className="total-score">
+          ￥{this.totalPrice()}
+        </span>
         {children}
       </div>
     );
