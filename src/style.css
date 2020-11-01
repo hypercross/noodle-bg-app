@@ -83,6 +83,7 @@ p {
 .scores .total-score {
   flex: 1;
   font-size: 2em;
+  white-space: nowrap;
 }
 
 .player-score {
