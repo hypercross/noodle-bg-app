@@ -143,30 +143,33 @@ class NoodleFlavor {
   rules = [this.orderRule, this.recommendedRule, this.prohibitedRule];
 }
 
-function 葱花推荐(ing) {
-  return ing.name == "葱花";
+function buildMatcher(name, score, cb) {
+  Object.defineProperties(
+    {
+      name: {
+        get() {
+          return name;
+        }
+      },
+      score: {
+        get() {
+          return score;
+        }
+      }
+    },
+    cb
+  );
+  return cb;
 }
-葱花推荐.score = 2;
 
-function 盐须推荐(ing) {
-  return ing.name == "盐须";
-}
-盐须推荐.score = 2;
+const 葱花推荐 = buildMatcher("葱花推荐", 2, ing => ing.name == "葱花");
+const 葱花禁选 = buildMatcher("葱花禁选", -3, ing => ing.name == "葱花");
 
-function 盐须禁选(ing) {
-  return ing.name == "盐须";
-}
-盐须禁选.score = -3;
+const 盐须推荐 = buildMatcher("盐须推荐", 2, ing => ing.name == "盐须");
+const 盐须禁选 = buildMatcher("盐须禁选", -3, ing => ing.name == "盐须");
 
-function 红油推荐(ing) {
-  return ing.name == "红油";
-}
-红油推荐.score = 2;
-
-function 红油禁选(ing) {
-  return ing.name == "红油";
-}
-红油禁选.score = -3;
+const 红油推荐 = buildMatcher("红油推荐", 2, ing => ing.name == "红油");
+const 红油禁选 = buildMatcher("红油禁选", -3, ing => ing.name == "红油");
 
 const seafood = {
   墨鱼: true,
