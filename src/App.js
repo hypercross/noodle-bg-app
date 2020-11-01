@@ -6,7 +6,7 @@ import { Noodle } from "./noodle";
 export default function App() {
   const [i, inc] = React.useReducer(i => i + 1, 0);
   const noodle = React.useMemo(() => new Noodle(), []);
-  const { select, flavor } = sichuan.useFlavorSelect();
+  const { select, flavor } = sichuan.useFlavorSelect(noodle.ingredients);
 
   noodle.useUpdate(inc);
   noodle.catalog = sichuan.catalog;

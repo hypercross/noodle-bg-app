@@ -236,7 +236,7 @@ n8.recommended.push(红油推荐, 盐须推荐);
 
 const flavors = [n0, n1, n2, n3, n4, n5, n6, n7, n8];
 
-export function useFlavorSelect() {
+export function useFlavorSelect(ings) {
   const [flavor, setFlavor] = useState("商务套餐");
 
   const select = (
@@ -246,7 +246,11 @@ export function useFlavorSelect() {
       onChange={e => setFlavor(e.target.value)}
     >
       {flavors.map(f => (
-        <option value={f.name} key={f.name}>
+        <option
+          value={f.name}
+          key={f.name}
+          disabled={!f.findMatch(ings, f.required)}
+        >
           {f.name}
         </option>
       ))}
