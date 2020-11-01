@@ -7,7 +7,7 @@ p {
 .catalog {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: left;
   margin: 0.5em 0.5em;
   padding: 0.5em 1em;
   border-radius: 0.2em;

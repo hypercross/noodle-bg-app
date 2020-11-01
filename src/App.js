@@ -1,24 +1,24 @@
 import React from "react";
 import "./style.css";
-import { testNoodle } from "./noodle";
 import * as sichuan from "./sichuan";
-
-testNoodle.catalog = sichuan.catalog;
-testNoodle.rules = sichuan.basicRules;
+import { Noodle } from "./noodle";
 
 export default function App() {
   const [i, inc] = React.useReducer(i => i + 1, 0);
-  testNoodle.useUpdate(inc);
+  const noodle = React.useMemo(() => new Noodle(), []);
   const { select, flavor } = sichuan.useFlavorSelect();
 
-  testNoodle.rules = [...sichuan.basicRules, ...flavor.rules];
+  noodle.useUpdate(inc);
+  noodle.catalog = sichuan.catalog;
+  noodle.rules = [...flavor.rules, ...sichuan.basicRules];
+
   return (
     <div>
-      {testNoodle.renderCatalog()}
-      {testNoodle.renderIngredients()}
+      {noodle.renderCatalog()}
+      {noodle.renderIngredients()}
       {select}
-      {testNoodle.renderRules()}
-      {testNoodle.renderTotalScore()}
+      {noodle.renderRules()}
+      {noodle.renderTotalScore()}
     </div>
   );
 }

@@ -77,7 +77,12 @@ class NoodleFlavor {
   prohibited = [];
 
   findMatch(ings, required) {
-    const matched = ings.slice();
+    const names = {};
+    const matched = ings.filter(ing => {
+      if (names[ing.name]) return false;
+      names[ing.name] = true;
+      return true;
+    });
 
     for (const req of required) {
       const i = matched.findIndex(req);
@@ -182,7 +187,7 @@ function typed(type) {
 }
 const n0 = new NoodleFlavor();
 n0.name = "商务套餐";
-n0.tiers = [];
+n0.tiers = [{ count: 1, tier: "折扣", score: 0 }];
 
 const n1 = new NoodleFlavor();
 n1.name = "番茄煎蛋面";
@@ -194,8 +199,40 @@ const n2 = new NoodleFlavor();
 n2.name = "红烧排骨面";
 n2.required.push(named("排骨"), named("红油"));
 n2.recommended.push(葱花推荐);
+n2.prohibited.push(盐须禁选);
 
-const flavors = [n0, n1, n2];
+const n3 = new NoodleFlavor();
+n3.name = "红烧牛肉面";
+n3.required.push(named("牛肉"), named("红油"));
+n3.recommended.push(盐须推荐);
+
+const n4 = new NoodleFlavor();
+n4.name = "海鲜面";
+n4.required.push(海鲜, 海鲜);
+n4.prohibited.push(红油禁选);
+
+const n5 = new NoodleFlavor();
+n5.name = "脆绍面";
+n5.required.push(named("红油"), named("臊子"));
+n5.recommended.push(葱花推荐);
+
+const n6 = new NoodleFlavor();
+n6.name = "怪味面";
+n6.required.push(named("臊子"), 海鲜);
+n6.recommended.push(葱花推荐);
+n6.prohibited.push(盐须禁选);
+
+const n7 = new NoodleFlavor();
+n7.name = "肥肠面";
+n7.required.push(named("肥肠"), named("红油"));
+n7.recommended.push(盐须推荐);
+
+const n8 = new NoodleFlavor();
+n8.name = "豌杂面";
+n8.required.push(named("臊子"), typed("菜"));
+n8.recommended.push(红油推荐, 盐须推荐);
+
+const flavors = [n0, n1, n2, n3, n4, n5, n6, n7, n8];
 
 export function useFlavorSelect() {
   const [flavor, setFlavor] = useState("商务套餐");
