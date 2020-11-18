@@ -1,3 +1,4 @@
+import EventTarget from "@ungap/event-target";
 import React, { useEffect, Fragment } from "react";
 const update = new Event("update");
 
